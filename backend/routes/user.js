@@ -15,6 +15,19 @@ const signupSchema = zod.object({                           // Creating the zod 
     
 })
 
+router.get("/firstname", authMiddleware, async (req, res) => {
+    try {
+        const user = await User.findById(req.userId);
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        res.json({ firstName: user.firstName });
+    } catch (error) {
+        console.error("Error:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+});
+
 router.get("/bulk", async (req, res) => {                   // Route to get users from the backend
     const filter = req.query.filter || "";
 

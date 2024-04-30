@@ -11,7 +11,7 @@ export const Signup = () => {
     
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
-    const [email, setEmail] = useState("");
+    const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
 
@@ -28,21 +28,25 @@ export const Signup = () => {
           setLastName(e.target.value)
         }}placeholder="Doe" label={"Last Name"} />
         <InputBox onChange={e => {
-          setEmail(e.target.value)
+          setUsername(e.target.value)
         }}placeholder="ankit31@gmail.com" label={"Email"} />
         <InputBox onChange={e => {
           setPassword(e.target.value)
         }}placeholder="123456" label={"Password"} />
         <div className="pt-4">
-          <Button onClick={async () => {
-            await axios.post("http://localhost:3000/api/v1/signup", {
-              email,
-              firstName,
-              lastName,
-              password
-            })
-            localStorage.setItem("token", response.data.token)          // to save the auth token in the local stroage.
-            navigate("/dashboard")
+        <Button onClick={async () => {
+            try {
+                const response = await axios.post("http://localhost:3000/api/v1/user/signup", {
+                    username,
+                    firstName,
+                    lastName,
+                    password
+                });
+                localStorage.setItem("token", response.data.token); // Save the auth token in local storage
+                navigate("/dashboard");
+            } catch (error) {
+                console.error("Signup failed:", error);
+            }
           }} label={"Sign up"} />
         </div>
         <BottomWarning label={"Already have an account?"} buttonText={"Sign in"} to={"/signin"} />
