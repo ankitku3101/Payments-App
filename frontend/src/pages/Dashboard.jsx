@@ -6,8 +6,8 @@ import axios from "axios";
 
 export const Dashboard = () => {
     
-    const [userInfo, setUserInfo] = useState(null); // State to store user information
-    const [balance, setBalance] = useState(null); // State to store balance
+    const [userInfo, setUserInfo] = useState(null); 
+    const [balance, setBalance] = useState(null); 
     const token = localStorage.getItem("token");
 
     useEffect(() => {
@@ -15,7 +15,7 @@ export const Dashboard = () => {
             try {
                 const response = await axios.get('http://localhost:3000/api/v1/user/firstname', {
                     headers: {
-                        'Authorization': 'Bearer ' + token // Add a space after 'Bearer'
+                        'Authorization': 'Bearer ' + token 
                     }
                 });
                 setUserInfo(response.data); // Set user information from response data
@@ -28,7 +28,7 @@ export const Dashboard = () => {
             try {
                 const response = await axios.get('http://localhost:3000/api/v1/account/balance', {
                     headers: {
-                        'Authorization': 'Bearer ' + token // Add a space after 'Bearer'
+                        'Authorization': 'Bearer ' + token 
                     }
                 });
                 setBalance(response.data.balance); // Set balance from response data
@@ -37,23 +37,24 @@ export const Dashboard = () => {
             }
         };
 
-        fetchUserInfo(); // Call the function to fetch user information
-        fetchBalance(); // Call the function to fetch balance
+        fetchUserInfo(); 
+        fetchBalance(); 
     }, [token]); // Execute only when token changes
 
+    // console.log(userInfo && userInfo.firstName)
     return (
         <div>
-            {userInfo && <Appbar value={userInfo.firstName} />}
+            <Appbar value={userInfo ? userInfo.firstName : "Loading..."} />
             <div className="m-8">
                 {userInfo !== null ? (
-                    <p>Welcome, {userInfo.firstName}!</p>
+                    <p>Welcome, {userInfo.firstName} !</p>
                 ) : (
-                    <p>Loading...</p> // Display loading message until user information is fetched
+                    <p>Loading...</p> 
                 )}
                 {balance !== null ? (
                     <Balance value={balance.toFixed(2)} />
                 ) : (
-                    <p>Loading...</p> // Display loading message until balance is fetched
+                    <p>Loading...</p> 
                 )}
                 <Users />
             </div>

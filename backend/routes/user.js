@@ -7,12 +7,11 @@ const { JWT_SECRET } = require("../config")
 const  { authMiddleware } = require("../middleware");
 
 
-const signupSchema = zod.object({                           // Creating the zod validation schema
+const signupSchema = zod.object({                          
     username: zod.string().email(),
     firstName: zod.string(),
     lastName: zod.string(),
-    password: zod.string(),
-    
+    password: zod.string(),    
 })
 
 router.get("/firstname", authMiddleware, async (req, res) => {
@@ -29,7 +28,7 @@ router.get("/firstname", authMiddleware, async (req, res) => {
 });
 
 router.get("/bulk", async (req, res) => {
-    const filter = req.query.filter || "";
+    const filter = req.query.filter || "";    
     const users = await User.find({
         $or: [{
             firstName: {

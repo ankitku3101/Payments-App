@@ -1,18 +1,22 @@
+import React from 'react';
+import { Link } from "react-router-dom"
 
-export const Appbar = ({firstName}) => {
-    return <div className="shadow h-14 flex justify-between">
-        <div className="flex flex-col justify-center h-full ml-4">
-            Payments App
-        </div>
-        <div className="flex">
-            <div className="flex flex-col justify-center h-full mr-4">
-                Hello {firstName}
+export const Appbar = () => {
+
+    const handleSignOut = () => {
+        localStorage.removeItem('token');
+    };
+
+    return (
+        <div className="shadow h-14 flex justify-between">
+            <div className="flex flex-col justify-center h-full ml-4">
+                Payments App
             </div>
-            <div className="rounded-full h-12 w-12 bg-slate-200 flex justify-center mt-1 mr-2">
-                <div className="flex flex-col justify-center h-full text-xl">
-                    U
+            <div className="flex pt-1">
+                <div className="flex flex-col justify-center h-full mr-4">
+                    <Link onClick={handleSignOut} className=" w-full text-white bg-red-500 hover:bg-red-600 focus:outline-none focus:ring-4 focus:ring-red-200 font-medium rounded-lg text-sm p-2 mb-2" to={'/signin'}>Sign Out</Link>
                 </div>
             </div>
         </div>
-    </div>
-}
+    );
+};

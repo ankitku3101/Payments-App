@@ -32,7 +32,7 @@ export const Signin = () => {
                     password
                 });
                 localStorage.setItem("token", response.data.token);
-                // axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
+                axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
                 navigate("/dashboard");
             } catch (error) {
                 console.error("Signin failed:", error);
