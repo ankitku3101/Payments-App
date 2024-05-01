@@ -28,9 +28,8 @@ router.get("/firstname", authMiddleware, async (req, res) => {
     }
 });
 
-router.get("/bulk", async (req, res) => {                   // Route to get users from the backend
+router.get("/bulk", async (req, res) => {
     const filter = req.query.filter || "";
-
     const users = await User.find({
         $or: [{
             firstName: {
@@ -43,7 +42,7 @@ router.get("/bulk", async (req, res) => {                   // Route to get user
         }]
     })
 
-    res.json({                                              // returns the desired user's details
+    res.json({
         user: users.map(user => ({
             username: user.username,
             firstName: user.firstName,
@@ -104,7 +103,7 @@ router.post("/signin", async (req, res) => {
     const { success } = signinBody.safeParse(req.body)
     if (!success) {
         return res.status(411).json({
-            message: "Email already taken / Incorrect inputs"
+            message: "Incorrect inputs"
         })
     }
 

@@ -51,7 +51,7 @@ export const Dashboard = () => {
                     <p>Loading...</p> // Display loading message until user information is fetched
                 )}
                 {balance !== null ? (
-                    <Balance value={balance} />
+                    <Balance value={balance.toFixed(2)} />
                 ) : (
                     <p>Loading...</p> // Display loading message until balance is fetched
                 )}
