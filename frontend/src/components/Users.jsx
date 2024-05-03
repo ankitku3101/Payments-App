@@ -5,15 +5,25 @@ import { useNavigate } from "react-router-dom";
 
 
 export const Users = () => {
-    // Replace with backend call
+    
     const [users, setUsers] = useState([]);
     const [filter, setFilter] = useState("");
 
     useEffect(() => {
-        axios.get("http://localhost:3000/api/v1/user/bulk?filter=" + filter)
-            .then(response => {
-                setUsers(response.data.user)
-            })
+        axios.get("http://localhost:3000/api/v1/user/bulk", {
+            params: {
+              filter: filter
+            },
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+          })
+          .then(response => {
+            setUsers(response.data.user)
+          })
+          .catch(error => {
+            console.error(error);
+          })
     }, [filter])
 
     return <>
@@ -50,7 +60,7 @@ function User({user}) {
 
         <div className="flex flex-col justify-center h-ful">
             <Button onClick={(e) => {
-                navigate("/send?id=" + user._id + "&name=" + user.firstName);
+                navigate("/send?id=" + user._id + "&name=" + user.firstName + " " + user.lastName);
             }} label={"Send Money"} />
         </div>
     </div>

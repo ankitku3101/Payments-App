@@ -8,9 +8,9 @@ export const Appbar = () => {
     };
 
     return (
-        <div className="shadow h-14 flex justify-between">
-            <div className="flex flex-col justify-center h-full ml-4">
-                Payments App
+        <div className="shadow-lg h-14 flex justify-between">
+            <div className="flex flex-col justify-center h-full ml-4 font-bold text-lg text-[#002C7C]">
+                PAYMENTS APP
             </div>
             <div className="flex pt-1">
                 <div className="flex flex-col justify-center h-full mr-4">
